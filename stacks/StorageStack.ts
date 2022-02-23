@@ -6,6 +6,7 @@ import {
     TableFieldType,
     Bucket,
 } from '@serverless-stack/resources';
+import { HttpMethods } from 'aws-cdk-lib/aws-s3';
 
 export default class StorageStack extends Stack {
     public readonly table: Table;
@@ -22,6 +23,23 @@ export default class StorageStack extends Stack {
             primaryIndex: { partitionKey: 'userId', sortKey: 'noteId' },
         });
 
-        this.bucket = new Bucket(this, 'Uploads');
+        this.bucket = new Bucket(this, 'Uploads', {
+            s3Bucket: {
+                cors: [
+                    {
+                        maxAge: 3000,
+                        allowedOrigins: ['*'],
+                        allowedHeaders: ['*'],
+                        allowedMethods: [
+                            HttpMethods.GET,
+                            HttpMethods.POST,
+                            HttpMethods.PUT,
+                            HttpMethods.DELETE,
+                            HttpMethods.HEAD,
+                        ],
+                    },
+                ],
+            },
+        });
     }
 }

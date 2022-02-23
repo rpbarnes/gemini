@@ -22,6 +22,7 @@ export default class ApiStack extends Stack {
                 },
             },
             defaultAuthorizationType: ApiAuthorizationType.AWS_IAM,
+            cors: true,
             routes: {
                 'POST        /notes': 'src/create.main',
                 'GET    /notes/{id}': 'src/get.main',
