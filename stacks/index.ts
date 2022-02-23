@@ -1,6 +1,7 @@
 import StorageStack from './StorageStack';
 import ApiStack from './ApiStack';
 import * as sst from '@serverless-stack/resources';
+import AuthStack from './AuthStack';
 
 export default function main(app: sst.App): void {
     // Set default runtime for all functions
@@ -8,9 +9,14 @@ export default function main(app: sst.App): void {
         runtime: 'nodejs14.x',
     });
 
-    const storage = new StorageStack(app, 'storage');
+    const storageStack = new StorageStack(app, 'storage');
 
-    const api = new ApiStack(app, 'api', {
-        table: storage.table,
+    const apiStack = new ApiStack(app, 'api', {
+        table: storageStack.table,
+    });
+
+    new AuthStack(app, 'auth', {
+        api: apiStack.api,
+        bucket: storageStack.bucket,
     });
 }

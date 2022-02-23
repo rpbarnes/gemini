@@ -1,5 +1,6 @@
 import {
     Api,
+    ApiAuthorizationType,
     App,
     Stack,
     StackProps,
@@ -20,6 +21,7 @@ export default class ApiStack extends Stack {
                     TABLE_NAME: props.table.tableName,
                 },
             },
+            defaultAuthorizationType: ApiAuthorizationType.AWS_IAM,
             routes: {
                 'POST        /notes': 'src/create.main',
                 'GET    /notes/{id}': 'src/get.main',
