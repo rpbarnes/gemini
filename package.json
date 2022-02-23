@@ -7,7 +7,8 @@
     "start": "sst start",
     "build": "sst build",
     "deploy": "sst deploy",
-    "remove": "sst remove"
+    "remove": "sst remove",
+    "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write"
   },
   "eslintConfig": {
     "extends": [
@@ -17,7 +18,8 @@
   "devDependencies": {
     "@tsconfig/node14": "^1.0.1",
     "@types/aws-lambda": "^8.10.70",
-    "@types/node": "<15.0.0"
+    "@types/node": "<15.0.0",
+    "@types/uuid": "^8.3.4"
   },
   "dependencies": {
     "@serverless-stack/cli": "0.65.4",
