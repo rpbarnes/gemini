@@ -2,6 +2,7 @@ import StorageStack from './StorageStack';
 import ApiStack from './ApiStack';
 import * as sst from '@serverless-stack/resources';
 import AuthStack from './AuthStack';
+import FrontendStack from './FrontendStack';
 
 export default function main(app: sst.App): void {
     // Set default runtime for all functions
@@ -15,8 +16,14 @@ export default function main(app: sst.App): void {
         table: storageStack.table,
     });
 
-    new AuthStack(app, 'auth', {
+    const authStack = new AuthStack(app, 'auth', {
         api: apiStack.api,
         bucket: storageStack.bucket,
+    });
+
+    new FrontendStack(app, 'frontend', {
+        api: apiStack.api,
+        bucket: storageStack.bucket,
+        auth: authStack.auth,
     });
 }
